@@ -5,15 +5,18 @@ project(main)
 
 # Build a shared library named after the project from the files in `src/`
 file(GLOB SOURCE_FILES "src/*.cc" "src/*.h")
-add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
 
 if (CMAKE_JS_VERSION)
+{% if hasNapi %}
+include_directories(${CMAKE_JS_INC})
+{% endif %}
 else()
-  # start clion-config here
-  include_directories(/home/dragosc/.cache/node-gyp/12.20.2/include/node)
-  include_directories(/home/dragosc/Workspace/templates/node-addon-nan/node_modules/nan)
-  # end clion-config here
+{% for folder in folders %}
+include_directories({{folder}})
+{% endfor %}
 endif()
+
+add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
 
 # Gives our library file a .node extension without any "lib" prefix
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")

@@ -92,5 +92,9 @@ docs.json
 compile_flags.txt
 
 # cmake-js
-cmake-build-*
-CMakeLists.txt
+/cmake-build-*
+/CMakeLists.txt
+
+# xmake
+/xmake.lua
+/.xmake

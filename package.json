@@ -4,10 +4,12 @@
   "description": "NodeJs Addon Project Template using NAN",
   "main": "dist/index.js",
   "scripts": {
+    "build:addon": "npm run build:addon:gyp -- --verbose",
     "build:addon:cmake": "npx cmake-js configure && npx cmake-js build",
     "build:addon:gyp": "npx node-gyp configure && npx node-gyp build",
-    "build:dev": "npm run build:addon:gyp -- --debug",
-    "build": "npm run build:addon:gyp",
+    "build:addon:xmake": "xmake",
+    "build:dev": "npm run build:addon -- --debug",
+    "build": "npm run build:addon",
     "ca:lint": "npm run prettier:write && npm run lint:write",
     "ca:quality": "npm run jscpd && npm run depcruise",
     "ca:security": "npm run license-check && (npm audit --production || yarn audit --groups=dependencies)",
@@ -55,9 +57,9 @@
   "author": "Dragos Cirjan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/templ-project/node/issues"
+    "url": "https://github.com/templ-project/node-addon-nan/issues"
   },
-  "homepage": "https://github.com/templ-project/node#readme",
+  "homepage": "https://github.com/templ-project/node-addon-nan#readme",
   "devDependencies": {
     "@babel/core": "7.14.3",
     "@babel/eslint-parser": "^7.14.3",
@@ -88,6 +90,7 @@
     "license-checker": "^25.0.1",
     "mocha": "^8.4.0",
     "mocha-junit-reporter": "^2.0.0",
+    "node-cmake": "^2.5.1",
     "node-gyp": "^8.1.0",
     "nodemon": "^2.0.7",
     "nyc": "^15.1.0",
@@ -102,5 +105,6 @@
   "dependencies": {
     "bindings": "^1.5.0",
     "nan": "^2.14.2"
-  }
+  },
+  "gypfile": true
 }
