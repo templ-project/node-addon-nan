@@ -1,16 +1,69 @@
-set_languages("c99", "cxx11"){# set_languages('cxx14') #}
+set_languages("c99", "cxx11"){# set_languages('cxx14')#}
 
-add_ldflags('-undefined dynamic_lookup')
+-- add_ldflags('-undefined dynamic_lookup', {force = true})
 
-target('main')
-set_filename('main.node'){# build path to be build\Release #}
-
-set_kind('binary')
-
--- add node.js headers
--- add_includedirs(os.getenv('NODE_HEADERS'))
 {% for folder in folders %}
 add_includedirs('{{folder}}')
 {% endfor %}
 
-add_files('$(projectdir)/src/*.cc')
+add_linkdirs("{{folders[0]}}/../../$(arch)")
+add_links("node")
+
+
+target('node-gyp')
+  set_kind('shared')
+  set_extension('.lib')
+  add_files('$(projectdir)/node_modules/node-gyp/src/*.cc')
+  add_defines(
+    "USING_UV_SHARED=1",
+    "USING_V8_SHARED=1",
+    "V8_DEPRECATION_WARNINGS=1",
+    "V8_DEPRECATION_WARNINGS",
+    "V8_IMMINENT_DEPRECATION_WARNINGS",
+    "WIN32",
+    "_CRT_SECURE_NO_DEPRECATE",
+    "_CRT_NONSTDC_NO_DEPRECATE",
+    "_HAS_EXCEPTIONS=0",
+    "OPENSSL_NO_PINSHARED",
+    "OPENSSL_THREADS",
+    "BUILDING_NODE_EXTENSION",
+    "HOST_BINARY=\"node.exe\"",
+    "_WINDLL"
+  )
+
+target('main')
+  set_kind('binary')
+  set_extension('.node')
+  add_files('$(projectdir)/src/*.cc')
+  add_deps('node-gyp')
+  add_defines(
+    "NODE_GYP_MODULE_NAME=main",
+    "USING_UV_SHARED=1",
+    "USING_V8_SHARED=1",
+    "V8_DEPRECATION_WARNINGS=1",
+    "V8_DEPRECATION_WARNINGS",
+    "V8_IMMINENT_DEPRECATION_WARNINGS",
+    "WIN32",
+    "_CRT_SECURE_NO_DEPRECATE",
+    "_CRT_NONSTDC_NO_DEPRECATE",
+    "_HAS_EXCEPTIONS=0",
+    "OPENSSL_NO_PINSHARED",
+    "OPENSSL_THREADS",
+    "BUILDING_NODE_EXTENSION",
+    "HOST_BINARY=\"node.exe\"",
+    "_WINDLL"
+  )
+
+add_ldflags('-undefined dynamic_lookup', {force = true})
+
+
+
+target('node-gyp')
+  set_kind('shared')
+  add_files('$(projectdir)/node_modules/node-gyp/src/*.cc')
+
+target('main')
+  set_kind('binary')
+  set_filename('main.node')
+  add_files('$(projectdir)/src/*.cc')
+  add_deps('node-gyp')

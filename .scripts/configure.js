@@ -3,6 +3,8 @@ const {twig} = require('twig');
 const fs = require('fs');
 const path = require('path');
 
+console.log(process.env.NODE_HEADERS);
+
 const packageJson = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json')).toString());
 
 /**
