@@ -4,7 +4,7 @@
   "description": "NodeJs Addon Project Template using NAN",
   "main": "dist/index.js",
   "scripts": {
-    "build:addon": "npm run build:addon:gyp -- --verbose",
+    "build:addon": "npm run build:addon:cmake -- --verbose",
     "build:addon:cmake": "npx cmake-js configure && npx cmake-js build",
     "build:addon:gyp": "npx node-gyp configure && npx node-gyp build",
     "build:addon:xmake": "xmake",
@@ -47,7 +47,8 @@
     "test:junit": "npm run test -- --reporter mocha-junit-reporter --reporter-options mochaFile=.junit.xml",
     "test:single": "cross-env NODE_ENV=test nyc --reporter=html --reporter=lcov --reporter=text --extension .js mocha --forbid-only",
     "test:watch": "npm run test -- --watch",
-    "test": "npm run test:single -- './test/**/*.test.js'"
+    "test": "npm run test:single -- './test/**/*.test.js'",
+    "install": "npm run build:addon "
   },
   "repository": {
     "type": "git",
@@ -104,6 +105,5 @@
   "dependencies": {
     "bindings": "^1.5.0",
     "nan": "^2.14.2"
-  },
-  "gypfile": true
+  }
 }
