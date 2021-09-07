@@ -1,13 +1,7 @@
 const {spawn} = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const {
-  getCommandPath,
-  parseCMakeFilesMainDirFlagsMake,
-  parseMainTargetMk,
-  parseMainVcxproj,
-  pspawn,
-} = require('./ide-config');
+const {getCommandPath, pspawn} = require('./configure/lib');
 const globby = require('globby');
 const colors = require('colors');
 

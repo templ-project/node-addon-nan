@@ -1,29 +1,14 @@
 const {spawn} = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const {
-  getCommandPath,
-  parseCMakeFilesMainDirFlagsMake,
-  parseMainTargetMk,
-  parseMainVcxproj,
-  pspawn,
-} = require('./ide-config');
+const {packageJson, getCommandPath, libraryFolders, pspawn} = require('./configure/lib');
 const globby = require('globby');
 const colors = require('colors');
 
 const debug = process.env.DEBUG ? true : false;
 
 async function main() {
-  let includes = [parseMainVcxproj, parseMainTargetMk, parseCMakeFilesMainDirFlagsMake]
-    .reduce((acc, method) => {
-      try {
-        return [...acc, ...method()];
-      } catch (e) {
-        console.warn(e.message);
-      }
-      return acc;
-    }, [])
-    .map((include) => `-I${include}`);
+  let includes = libraryFolders('gyp').map((include) => `-I${include}`);
   includes = [...new Set(includes)];
 
   const clangTidy = await getCommandPath('clang-tidy');
