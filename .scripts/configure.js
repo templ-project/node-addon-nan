@@ -1,6 +1,7 @@
 const colors = require('colors');
 const {Command} = require('commander');
 const fs = require('fs');
+const globby = require('globby');
 const path = require('path');
 
 const {
@@ -112,9 +113,30 @@ const configureCompilerXmake = () => {
   configureXmakeLua();
 };
 
-/**
+/*******************************************************************************
  * VSCode Configuration
- */
+ ******************************************************************************/
+
+const vscodeConfigureLaunchJson = async () => {
+  try {
+    const filePath = path.join(__dirname, '..', '.vscode', 'launch.json');
+    console.debug(`Configuring ${filePath} ...`.brightBlue);
+    const rootFolder = path.join(__dirname, '..');
+    const testFiles = await globby(path.join(rootFolder, 'test', '*.(test|spec).(j|t)s'));
+    fs.writeFileSync(
+      filePath,
+      twigCompile('launch.json', {
+        folders: libraryFolders(options),
+        platform: process.platform,
+        testFiles: testFiles.map((f) => f.replace(rootFolder, '.')),
+      }),
+    );
+  } catch (e) {
+    console.error(`Failed: ${e.message} on ${e.stack}`.red);
+    process.exit(1);
+  }
+};
+
 const vscodeConfigureCCppPropertiesJson = () => {
   try {
     const filePath = path.join(__dirname, '..', '.vscode', 'c_cpp_properties.json');
@@ -146,6 +168,9 @@ const vscodeConfigureCompileFlagsTxt = () => {
   }
 };
 
+/**
+ *
+ */
 const vscodeConfigureSettingsJson = () => {
   try {
     const filePath = path.join(__dirname, '..', '.vscode', 'settings.json');
@@ -164,14 +189,14 @@ const vscodeConfigureSettingsJson = () => {
   }
 };
 
-/**
+/*******************************************************************************
  * CLion Configuration
- */
-
-// custom method yet
+ *
+ * no custom method yet
+ ******************************************************************************/
 
 /**
- * package.json
+ * Write package.json
  */
 const configurePackageJson = () => {
   try {
@@ -226,6 +251,7 @@ switch (options.buildSystem) {
  */
 if (options.ide === supportedIdes.VSCODE) {
   vscodeConfigureCCppPropertiesJson();
+  vscodeConfigureLaunchJson();
   vscodeConfigureSettingsJson();
   if (options.vscodeUseClangd) {
     vscodeConfigureCompileFlagsTxt();
