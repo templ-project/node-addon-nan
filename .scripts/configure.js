@@ -160,6 +160,7 @@ const configureXmakeLua = () => {
       filePath,
       twigCompile('xmake.lua', {
         folders: libraryFolders(),
+        platform: process.platform,
       }),
     );
   } catch (e) {

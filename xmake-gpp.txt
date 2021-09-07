@@ -1,0 +1,106 @@
+gyp info it worked if it ends with ok
+gyp info using node-gyp@8.2.0
+gyp info using node@12.22.6 | linux | x64
+gyp info find Python using Python version 3.8.10 found at "/usr/bin/python3"
+gyp info spawn /usr/bin/python3
+gyp info spawn args [
+gyp info spawn args   '/home/dragosc/Workspace/templates/nodejs-addon-nan/node_modules/node-gyp/gyp/gyp_main.py',
+gyp info spawn args   'binding.gyp',
+gyp info spawn args   '-f',
+gyp info spawn args   'make',
+gyp info spawn args   '-I',
+gyp info spawn args   '/home/dragosc/Workspace/templates/nodejs-addon-nan/build/config.gypi',
+gyp info spawn args   '-I',
+gyp info spawn args   '/home/dragosc/Workspace/templates/nodejs-addon-nan/node_modules/node-gyp/addon.gypi',
+gyp info spawn args   '-I',
+gyp info spawn args   '/home/dragosc/.cache/node-gyp/12.22.6/include/node/common.gypi',
+gyp info spawn args   '-Dlibrary=shared_library',
+gyp info spawn args   '-Dvisibility=default',
+gyp info spawn args   '-Dnode_root_dir=/home/dragosc/.cache/node-gyp/12.22.6',
+gyp info spawn args   '-Dnode_gyp_dir=/home/dragosc/Workspace/templates/nodejs-addon-nan/node_modules/node-gyp',
+gyp info spawn args   '-Dnode_lib_file=/home/dragosc/.cache/node-gyp/12.22.6/<(target_arch)/node.lib',
+gyp info spawn args   '-Dmodule_root_dir=/home/dragosc/Workspace/templates/nodejs-addon-nan',
+gyp info spawn args   '-Dnode_engine=v8',
+gyp info spawn args   '--depth=.',
+gyp info spawn args   '--no-parallel',
+gyp info spawn args   '--generator-output',
+gyp info spawn args   'build',
+gyp info spawn args   '-Goutput_dir=.'
+gyp info spawn args ]
+gyp info ok
+gyp info it worked if it ends with ok
+gyp verb cli [
+gyp verb cli   '/usr/bin/node',
+gyp verb cli   '/home/dragosc/Workspace/templates/nodejs-addon-nan/node_modules/.bin/node-gyp',
+gyp verb cli   'build',
+gyp verb cli   '--verbose'
+gyp verb cli ]
+gyp info using node-gyp@8.2.0
+gyp info using node@12.22.6 | linux | x64
+gyp verb command build []
+gyp verb build type Release
+gyp verb architecture x64
+gyp verb node dev dir /home/dragosc/.cache/node-gyp/12.22.6
+gyp verb `which` succeeded for `make` /usr/bin/make
+gyp info spawn make
+gyp info spawn args [ 'V=1', 'BUILDTYPE=Release', '-C', 'build' ]
+make: Entering directory '/home/dragosc/Workspace/templates/nodejs-addon-nan/build'
+  g++ -o Release/obj.target/main/src/main.o ../src/main.cc '-DNODE_GYP_MODULE_NAME=main' '-DUSING_UV_SHARED=1' '-DUSING_V8_SHARED=1' '-DV8_DEPRECATION_WARNINGS=1' '-DV8_DEPRECATION_WARNINGS' '-DV8_IMMINENT_DEPRECATION_WARNINGS' '-D_LARGEFILE_SOURCE' '-D_FILE_OFFSET_BITS=64' '-D__STDC_FORMAT_MACROS' '-DOPENSSL_NO_PINSHARED' '-DOPENSSL_THREADS' '-DBUILDING_NODE_EXTENSION' -I/home/dragosc/.cache/node-gyp/12.22.6/include/node -I/home/dragosc/.cache/node-gyp/12.22.6/src -I/home/dragosc/.cache/node-gyp/12.22.6/deps/openssl/config -I/home/dragosc/.cache/node-gyp/12.22.6/deps/openssl/openssl/include -I/home/dragosc/.cache/node-gyp/12.22.6/deps/uv/include -I/home/dragosc/.cache/node-gyp/12.22.6/deps/zlib -I/home/dragosc/.cache/node-gyp/12.22.6/deps/v8/include -I../node_modules/nan  -fPIC -pthread -Wall -Wextra -Wno-unused-parameter -m64 -O3 -fno-omit-frame-pointer -fno-rtti -fno-exceptions -std=gnu++1y -MMD -MF ./Release/.deps/Release/obj.target/main/src/main.o.d.raw   -c
+In file included from ../node_modules/nan/nan.h:58,
+                 from ../src/main.cc:10:
+/home/dragosc/.cache/node-gyp/12.22.6/include/node/node.h:736:43: warning: cast between incompatible function types from ‘void (*)(v8::Local<v8::Object>)’ to ‘node::addon_register_func’ {aka ‘void (*)(v8::Local<v8::Object>, v8::Local<v8::Value>, void*)’} [-Wcast-function-type]
+  736 |       (node::addon_register_func) (regfunc),                          \
+      |                                           ^
+/home/dragosc/.cache/node-gyp/12.22.6/include/node/node.h:770:3: note: in expansion of macro ‘NODE_MODULE_X’
+  770 |   NODE_MODULE_X(modname, regfunc, NULL, 0)  // NOLINT (readability/null_usage)
+      |   ^~~~~~~~~~~~~
+../src/main.cc:51:1: note: in expansion of macro ‘NODE_MODULE’
+   51 | NODE_MODULE(hello, Init)
+      | ^~~~~~~~~~~
+  g++ -o Release/obj.target/main.node -shared -pthread -rdynamic -m64  -Wl,-soname=main.node -Wl,--start-group Release/obj.target/main/src/main.o -Wl,--end-group
+  ln -f "Release/obj.target/main.node" "Release/main.node" 2>/dev/null || (rm -rf "Release/main.node" && cp -af "Release/obj.target/main.node" "Release/main.node")
+make: Leaving directory '/home/dragosc/Workspace/templates/nodejs-addon-nan/build'
+gyp info ok
+
+
+
+
+
+g++
+-o Release/obj.target/main/src/main.o
+../src/main.cc
+'-DNODE_GYP_MODULE_NAME=main'
+'-DUSING_UV_SHARED=1'
+'-DUSING_V8_SHARED=1'
+'-DV8_DEPRECATION_WARNINGS=1'
+'-DV8_DEPRECATION_WARNINGS'
+'-DV8_IMMINENT_DEPRECATION_WARNINGS'
+'-D_LARGEFILE_SOURCE'
+'-D_FILE_OFFSET_BITS=64'
+'-D__STDC_FORMAT_MACROS'
+'-DOPENSSL_NO_PINSHARED'
+'-DOPENSSL_THREADS'
+'-DBUILDING_NODE_EXTENSION'
+-I/home/dragosc/.cache/node-gyp/12.22.6/include/node
+-I/home/dragosc/.cache/node-gyp/12.22.6/src
+-I/home/dragosc/.cache/node-gyp/12.22.6/deps/openssl/config
+-I/home/dragosc/.cache/node-gyp/12.22.6/deps/openssl/openssl/include
+-I/home/dragosc/.cache/node-gyp/12.22.6/deps/uv/include
+-I/home/dragosc/.cache/node-gyp/12.22.6/deps/zlib
+-I/home/dragosc/.cache/node-gyp/12.22.6/deps/v8/include
+-I../node_modules/nan
+-fPIC
+-pthread
+-Wall
+-Wextra
+-Wno-unused-parameter
+-m64
+-O3
+-fno-omit-frame-pointer
+-fno-rtti
+-fno-exceptions
+-std=gnu++1y
+-MMD
+-MF
+./Release/.deps/Release/obj.target/main/src/main.o.d.raw
+-c
