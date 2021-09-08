@@ -1,17 +1,28 @@
+const cStandard = 'c11';
+const cppStandard = 'c++17';
+
 module.exports = {
   configurations: [
     {
       configureFilter: 'linux',
       configureSource: 'https://code.visualstudio.com/docs/cpp/config-linux',
       name: 'Linux / g++',
-      includePath: [
-        '/home/dragosc/.cache/node-gyp/12.20.2/include/node',
-        '/home/dragosc/Workspace/templates/node-addon-nan/node_modules/nan',
-      ],
+      includePath: [],
       defines: [],
       compilerPath: '/usr/bin/gcc',
-      cStandard: 'c11',
-      cppStandard: 'c++17',
+      cStandard,
+      cppStandard,
+      intelliSenseMode: 'gcc-x64',
+    },
+    {
+      configureFilter: 'linux',
+      configureSource: 'https://code.visualstudio.com/docs/cpp/config-linux',
+      name: 'Linux / Clang',
+      includePath: [],
+      defines: [],
+      compilerPath: '/usr/bin/gcc',
+      cStandard,
+      cppStandard,
       intelliSenseMode: 'clang-x64',
     },
     {
@@ -22,8 +33,8 @@ module.exports = {
       defines: [],
       macFrameworkPath: ['/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks'],
       compilerPath: '/usr/bin/clang',
-      cStandard: 'c11',
-      cppStandard: 'c++17',
+      cStandard,
+      cppStandard,
       intelliSenseMode: 'clang-x64',
     },
     {
@@ -35,8 +46,8 @@ module.exports = {
       windowsSdkVersion: '10.0.18362.0',
       compilerPath:
         'C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/cl.exe',
-      cStandard: 'c11',
-      cppStandard: 'c++17',
+      cStandard,
+      cppStandard,
       intelliSenseMode: 'msvc-x64',
     },
     {
@@ -47,7 +58,7 @@ module.exports = {
       defines: ['_DEBUG', 'UNICODE', '_UNICODE'],
       windowsSdkVersion: '10.0.18362.0',
       compilerPath: 'C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/bin/g++.exe',
-      cStandard: 'c11',
+      cStandard,
       intelliSenseMode: 'gcc-x64',
     },
     {
@@ -57,8 +68,8 @@ module.exports = {
       includePath: [],
       defines: [],
       compilerPath: '/usr/bin/gcc',
-      cStandard: 'c11',
-      cppStandard: 'c++17',
+      cStandard,
+      cppStandard,
       intelliSenseMode: 'clang-x64',
     },
   ],

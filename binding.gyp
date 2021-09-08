@@ -3,7 +3,7 @@
     {
       "target_name": "main",
       "sources": [
-              "src/main.cc"
+        "src/main.cc"
       ],
       "link_settings": {},
       "include_dirs": [
