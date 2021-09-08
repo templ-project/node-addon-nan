@@ -23,7 +23,8 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
-        build-system: [gyp, cmake, xmake]
+        # build-system: [gyp, cmake, xmake]
+        build-system: [gyp, cmake]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -37,9 +38,9 @@ jobs:
     - name: Make Build System Available (CMake)
       run: sudo apt-get install -y cmake
       if: ${{ matrix.build-system == 'cmake' }}
-    - name: Make Build System Available (CMake)
-      run: bash <(curl -fsSL https://xmake.io/shget.text)
-      if: ${{ matrix.build-system == 'xmake' }}
+    # - name: Make Build System Available (CMake)
+    #   run: bash <(curl -fsSL https://xmake.io/shget.text)
+    #   if: ${{ matrix.build-system == 'xmake' }}
     - name: Init
       run: npm i && node .scripts/configure.js -x ${{ matrix.build-system }}
     - name: Code Analysis

@@ -4,4 +4,3 @@
 node .scripts/configure.js -x gyp
 
 npm run ca && npm run test
-npm run ca && npm run test
