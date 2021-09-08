@@ -35,10 +35,10 @@ jobs:
     - name: Make CLang Available
       run: sudo apt-get install -y clang-tidy clang-format
     - name: Make Build System Available
-      run: if [[ "${{ matrix.build-system }}" == "cmake" ]]; then sudo apt-get install -y cmake; fi;
+      run: if [[ "${{ matrix.build-system }}" == "cmake" ]]; then sudo apt-get install -y cmake; fi
            if [[ "${{ matrix.build-system }}" == "xmake" ]]; then bash <(curl -fsSL https://xmake.io/shget.text); fi
     - name: Init
-      run: npm i && node .script/configure.js -x ${{ matrix.build-system }}
+      run: npm i && node .scripts/configure.js -x ${{ matrix.build-system }}
     - name: Code Analysis
       run: npm run ca
     - name: Code UnitTests
