@@ -62,13 +62,16 @@
       - [Supported IDEs](#supported-ides)
         - [Visual Studio Code + Extensions](#visual-studio-code--extensions)
         - [CLion](#clion)
-      - [Linters, Formatters, Code Analysis](#linters-formatters-code-analysis)
+        - [Javascript](#javascript)
+        - [C++](#c)
+        - [Generic](#generic)
       - [Git Hooks](#git-hooks)
+        - [pre-commit](#pre-commit)
+        - [commit-msg](#commit-msg)
     - [Prerequisites / Dependencies](#prerequisites--dependencies)
-        - [TODO: For MacOS](#todo-for-macos)
+        - [For MacOS](#for-macos)
         - [For Linux](#for-linux)
         - [For Windows](#for-windows)
-          - [For cmake](#for-cmake)
       - [Known Issues / Troubleshooting](#known-issues--troubleshooting)
     - [Installation](#installation)
     - [Development](#development)
@@ -80,7 +83,6 @@
     - [Deployment](#deployment)
   - [Authors](#authors)
   - [Issues / Support](#issues--support)
-    - [Known Issues](#known-issues)
   - [License](#license)
 
 <!-- /TOC -->
@@ -88,6 +90,12 @@
 ## Getting Started
 
 ### Project Description
+
+The template is trying to cover multiple build systems, with **[node-gyp](https://github.com/nodejs/node-gyp)** as the default one and it is always offering configuration support for two popular IDEs: Visual Studio Code and CLion.
+
+Project configuration is done using `.scripts/configure.js` script (as it is described bellow), and the files/templates from the `.scripts/configure` folder.
+
+When a build system configuration file is generated, please do not manually alter that file, but alter it's template from `.scripts/configure` and then run the configuration command as described bellow.
 
 #### Build Systems
 
@@ -123,7 +131,7 @@ node .scripts/configure.js -x cmake
 
 This will generate the `CMakeLists.txt` file & adapt `package.json` to use **node-gyp** as default build system.
 
-To fully understand how to use **cmake-js** as the default build system, please read the comments from [Node-Gyp](#node-gyp) regarding the `./kusky/pre-commit` hook, and, also, read the **cmake-js** documentation on how to reconfigure the `package.json` scripts for the code to build.
+To fully understand how to use **cmake-js** as the default build system, please read the comments from the [Node-Gyp](#node-gyp) section regarding the `./kusky/pre-commit` hook, and, also, read the [**cmake-js**](https://www.npmjs.com/package/cmake-js) documentation on how to reconfigure the `package.json` scripts for the code to build at install.
 
 ##### XMake
 
@@ -157,6 +165,8 @@ node .scripts/configure.js -x <buildSystem> -i vscode
 node .scripts/configure.js -x <buildSystem> -i vscode -ucl
 ```
 
+> Read more about configuring Visual Studio Code [here](manual/configure_vscode.md)
+
 ##### CLion
 
 CLion is currently compatible with [CMake](https://cmake.org/) only. You can still use other build systems for building the project, however you will require a `CMakeLists.txt` file, for CLion to be able to initialize the project properly.
@@ -170,61 +180,86 @@ node .scripts/configure.js -i clion
 # this will still generate the CMakeLists.txt file
 node .scripts/configure.js -x <buildSystem> -i clion
 ```
+> Read more about configuring CLion [here](manual/configure_clion.md)
+configure_clion.md Linters, Formatters, Code Analysis
 
-#### Linters, Formatters, Code Analysis
-> **javascript** part implements:
-> - [jscpd](https://github.com/kucherenko/jscpd), [dependency-cruiser](https://github.com/sverweij/dependency-cruiser) for code analisys
-> - [prettier](https://prettier.io/) for code formatting
-> - [eslint](https://eslint.org/) for linting
->
-> **c++** part implements:
-> - [llmv clang](https://clang.llvm.org/) for linting and formatting
->
-> By default, this implementation uses [npm](https://www.npmjs.com/), but you can easily change it to [yarn](https://yarnpkg.com/) or [pnpm](https://pnpm.js.org/) or any other package manager. 
+##### Javascript
+- [dependency-cruiser](https://github.com/sverweij/dependency-cruiser) for code analisys, will check dependencies & how they're imported
+- [prettier](https://prettier.io/) for code formatting
+- [eslint](https://eslint.org/) for linting
+
+##### C++
+
+- [clang-format](https://clang.llvm.org/docs/ClangFormat.html) for code formatting
+- [clang-tidy](https://clang.llvm.org/extra/clang-tidy/) for linting
+
+##### Generic
+
+- [jscpd](https://github.com/kucherenko/jscpd) for code analisys as copy paste detector
+- [dependency-checker](https://github.com/jeremylong/DependencyCheck) (designed by [OWASP](https://owasp.org/www-project-dependency-check/)) for code analisys, will check dependencies & security
+
+> **dependency-checked** is not used by default. The option exists, however using it, especially in pre-commit hooks takes a lot of time. We recommend using this analysis tool as part of CI pipelines.
 #### Git Hooks
 
+Git hooks are configured using [husky](https://github.com/typicode/husky)
+
+
+##### pre-commit
+
+Found in `.husky/pre-commit`, script will run `ca` and `test` scripts from `package.json`. Please take a look in the `package.json` file and follow the two mentioned scripts to understand what they do and how they are called.
+
+##### commit-msg
+
+Found in `.husky/commit-msg`, script will run a [commitlint](https://commitlint.js.org) check. Please read more on the official page on how to customize *commitlint* config.
 
 ### Prerequisites / Dependencies
 
-##### TODO: For MacOS
+##### For MacOS
 
-- Please install `git`, `c++`, `make`, `cmake` <!--or ~~`xmake`~~-->
-- Please install Python 3.6 or above.
-
-```bash
-brew install git make
-# for CMake
-brew install  cmake
-```
+> Help required. Project is not yet configured for MacOS.
 
 ##### For Linux
 
-- Please install `git`, `c++`, `make`, `cmake` <!--or ~~`xmake`~~-->
-- Please install Python 3.6 or above.
+- Please install `git`, `gcc/g++`, `make`
+- Please also install Python 3.6 or above.
+- Depending on the build system, please install: 
+  - **NodeGyp**: All requirements are set as default in the above list.
+  - **CMake**: `make`, `cmake`
+  - **XMake**: `make`, `xmake`
+
+> Do not forget NodeGyp is the main build system, so you need its requirements installed whatsoever.
 
 ```bash
 # i.e ubuntu
-sudo apt-get install build-essential git make -y
+PY_SUBVER=6 sudo apt-get install build-essential git make python3.$PY_SUBVER -y
 # for CMake
-sudo apt-get install  cmake
+sudo apt-get install cmake
+# for XMake (see https://xmake.io/#/guide/installation)
+bash <(curl -fsSL https://xmake.io/shget.text)
 ```
 ##### For Windows
 
 - Please install [git-scm](https://git-scm.com/download/win) tool.
-- Please install a form of make
-  - Install [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
-  - Install [make](https://sourceforge.net/projects/ezwinports/files/) from [ezwinports](https://sourceforge.net/projects/ezwinports/files/)
-  - Install [chocolatey](https://chocolatey.org/), run `choco install make`
-- Please install [Python](https://www.python.org/downloads/windows/) & [Microsoft Build Tools 2017](https://visualstudio.microsoft.com/):
-  - Run `npm i -g windows-build-tools`
-
-###### For cmake
-- Please install [cmake](https://cmake.org/)
+- Please install [Microsoft Build Tools 2017](https://visualstudio.microsoft.com/) or, at least [Microsoft Visual Studio Community 2019 ](https://visualstudio.microsoft.com/vs/)
+  - Or, run `npm i -g windows-build-tools` (will silent install Microsoft Build Tools 2017)
+- Please install [Python 3.6 or above](https://www.python.org/downloads/windows/)
+<!-- - Please install `make`
+  - [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
+  - [make](https://sourceforge.net/projects/ezwinports/files/) from [ezwinports](https://sourceforge.net/projects/ezwinports/files/)
+  - From [chocolatey](https://chocolatey.org/), run `choco install make` -->
+- Depending on the build system, please install: 
+  - **NodeGyp**: All requirements are set as default in the above list.
+  - **CMake**:
+    - [cmake](https://cmake.org/download/)
+  - **XMake**:
+    - [xmake](https://xmake.io/#/guide/installation)
+> Do not forget NodeGyp is the main build system, so you need its requirements installed whatsoever.
 
 #### Known Issues / Troubleshooting
 
 1. Note that `node-gyp` doesn't support Python 2.7 anymore, so you'll need to install Python 3.6 or above.
-2. If you plan on using [CLion](https://www.jetbrains.com/clion/) we recommend switching to `cmake-js`, since CLion has not support for `gyp`.
+1. **cmake** does not seem to allow debug mode for VS Code
+1. **xmake** is not compiling properly in debug mode
 
 ### Installation
 
@@ -300,11 +335,6 @@ npm run release
 ## Issues / Support
 
 Add a set of links to the [issues](/templ-project/nodejs-addon-nanjs-addon-nan/issues) page/website, so people can know where to add issues/bugs or ask for support.
-
-### Known Issues
-
-* **xmake** is not compiling properly in debug mode
-* **cmake** does not seem to allow debug mode for VS Code
 
 ## License
 
