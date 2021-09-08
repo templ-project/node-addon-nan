@@ -258,8 +258,9 @@ bash <(curl -fsSL https://xmake.io/shget.text)
 #### Known Issues / Troubleshooting
 
 1. Note that `node-gyp` doesn't support Python 2.7 anymore, so you'll need to install Python 3.6 or above.
-1. **cmake** does not seem to allow debug mode for VS Code
-1. **xmake** is not compiling properly in debug mode
+2. **cmake** does not seem to allow debug mode for VS Code
+3. **xmake** is not compiling properly in debug mode
+4. I am pretty sure **node-gyp** is forcing its own c++ standard over the one set by `configure.js` 
 
 ### Installation
 
