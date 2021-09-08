@@ -1,5 +1,5 @@
 const cStandard = 'c11';
-const cppStandard = 'c++17';
+const cppStandard = 'c++11';
 
 module.exports = {
   configurations: [

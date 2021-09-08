@@ -25,6 +25,8 @@ module.exports = (options) => {
         folders: libraryFolders(options),
         hasNapi: packageJsonContainsNapi(),
         hasNan: packageJsonContainsNan(),
+        cppStandards: options.cppStandard.map((x) => x.replace(/cxx|gnuxx/, '')),
+        cStandards: options.cStandard.map((x) => x.replace(/c|gnu/, '')),
       }),
     );
   });

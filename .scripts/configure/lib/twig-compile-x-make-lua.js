@@ -22,6 +22,7 @@ module.exports = (options) => {
       twigCompile('xmake.lua', {
         folders: libraryFolders(options),
         platform: process.platform,
+        languages: `\"${[...options.cStandard, ...options.cppStandard].join('", "')}\"`,
       }),
     );
   });

@@ -25,6 +25,8 @@ module.exports = (options) => {
         delete item.configureFilter;
         delete item.configureSource;
         item.includePath = libraryFolders(options);
+        item.cStandard = options.cStandard[0];
+        item.cppStandard = options.cppStandard[0].replace('xx', '++');
         return item;
       });
 

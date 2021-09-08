@@ -1,17 +1,19 @@
 const {spawn} = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const {packageJson, getCommandPath, libraryFolders, pspawn} = require('./configure/lib');
-const globby = require('globby');
+
 const colors = require('colors');
+const globby = require('globby');
+
+const {osGetCommandPath, utilsLibraryFolders, osPspawn} = require('./configure/lib');
 
 const debug = process.env.DEBUG ? true : false;
 
 async function main() {
-  let includes = libraryFolders('gyp').map((include) => `-I${include}`);
+  let includes = utilsLibraryFolders('gyp').map((include) => `-I${include}`);
   includes = [...new Set(includes)];
 
-  const clangTidy = await getCommandPath('clang-tidy');
+  const clangTidy = await osGetCommandPath('clang-tidy');
   if (!clangTidy) {
     console.error('C++ linting & prettify are dependent on LLVM CLang binaries.'.red);
     console.error(`Could not find 'clang-tidy'. Please install LLVM Clang from`.red);
@@ -41,7 +43,7 @@ async function main() {
     if (debug) {
       console.log(command.command.join(' '));
     }
-    const {stdout, stderr, code} = await pspawn(command.command);
+    const {stdout, stderr, code} = await osPspawn(command.command);
     if (code !== 0) {
       if (stdout.match(/: error:/) || stderr.match(/: error:/)) {
         console.log(`${command.file}`.red);

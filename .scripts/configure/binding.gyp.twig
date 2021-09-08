@@ -11,6 +11,9 @@
       "include_dirs": [
         "<!(node -e \"require('nan')\")"
       ],
+      "cflags": [
+        "-std={{cppStandards[0]}}"{#  -x c++ #}
+      ]
     }
   ]
 }

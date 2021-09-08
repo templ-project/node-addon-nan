@@ -29,20 +29,22 @@ program
     'configure VSCode to use CLang plugin instead of the default Microsoft Intellisense',
   )
   .option(
-    '-cs, --c-standard <cStandard>',
-    `[NOT IMPLEMENTED] C Standard: ${Object.keys(supportedCStandards)}`,
-    supportedCStandards.c11,
+    '-cs, --c-standard <cStandards>',
+    `[NOT IMPLEMENTED] C Standard (set the most important as 1st value): ${Object.keys(supportedCStandards)}`,
+    (value, previous) => previous.concat([value]),
+    [supportedCStandards.c11],
   )
   .option(
-    '-cpps, --cpp-standard <cppStandard>',
-    `[NOT IMPLEMENTED] C++ Standard: ${Object.keys(supportedCppStandards)}`,
-    supportedCppStandards.cxx11,
+    '-cpps, --cpp-standard <cppStandards>',
+    `[NOT IMPLEMENTED] C++ Standard (set the most important as 1st value): ${Object.keys(supportedCppStandards)}`,
+    (value, previous) => previous.concat([value]),
+    [supportedCppStandards.cxx11],
   );
 
 program.parse(process.argv);
 const options = program.opts();
 
-// console.log(options);
+console.log(options);
 
 (async () => {
   bsConfigure(options);

@@ -1,5 +1,4 @@
-set_languages("c99", "cxx11")
-{# set_languages('cxx14') #}
+set_languages({{languages}})
 
 {% for folder in folders %}
 	add_includedirs('{{folder}}')
@@ -45,7 +44,7 @@ target('main')
 {% if platform == 'win32' %}
 	add_deps('node-gyp')
 {% endif %}
-add_defines(
+  add_defines(
     "USING_UV_SHARED=1",
     "USING_V8_SHARED=1",
     "V8_DEPRECATION_WARNINGS=1",
@@ -55,16 +54,16 @@ add_defines(
     "OPENSSL_THREADS",
     "BUILDING_NODE_EXTENSION",
 {% if platform == 'linux' %}
-	"_LARGEFILE_SOURCE",
-	    "_FILE_OFFSET_BITS=64",
-	    "__STDC_FORMAT_MACROS"
+	  "_LARGEFILE_SOURCE",
+    "_FILE_OFFSET_BITS=64",
+    "__STDC_FORMAT_MACROS"
 {% endif %}
 {% if platform == 'win32' %}
-	"WIN32",
-	    "_CRT_SECURE_NO_DEPRECATE",
-	    "_CRT_NONSTDC_NO_DEPRECATE",
-	    "_HAS_EXCEPTIONS=0",
-	    "HOST_BINARY=\"node.exe\"",
-	    "_WINDLL"
+	  "WIN32",
+    "_CRT_SECURE_NO_DEPRECATE",
+    "_CRT_NONSTDC_NO_DEPRECATE",
+    "_HAS_EXCEPTIONS=0",
+    "HOST_BINARY=\"node.exe\"",
+    "_WINDLL"
 {% endif %}
-)
+  )

@@ -24,6 +24,8 @@ module.exports = (options) => {
     fs.writeFileSync(
       filePath,
       twigCompile('binding.gyp', {
+        cppStandards: options.cppStandard.map((x) => x.replace('xx', '++')),
+        cppStandard: options.cStandard,
         folders: libraryFolders(options),
         platform: process.platform,
         srcFiles,
