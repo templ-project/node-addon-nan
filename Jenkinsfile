@@ -48,6 +48,11 @@ pipeline {
                 nodeVersion: params.NODE_VERSION
               ])
             }
+            script {
+              nvm.runSh """
+                node .scripts/configure.js -x gyp
+              """, params.NODE_VERSION
+            }
           }
         }
         stage("Code Analysis") {
