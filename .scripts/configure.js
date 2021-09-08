@@ -13,13 +13,37 @@ const {
   haveNapiInPackagesJson,
   libraryFolders,
   twigCompile,
+  ewrap,
 } = require('./configure/lib');
+
+/**
+ * Node-Gyp
+ */
+const configureBindingGyp = () => {
+  ewrap(async () => {
+    const filePath = path.join(__dirname, '..', 'binding.gyp');
+    console.debug(`Configuring ${filePath} ...`.brightBlue);
+
+    const rootFolder = path.join(__dirname, '..');
+    let srcFiles = await globby(path.join(rootFolder, 'src', '*.c(c|pp|)'));
+    srcFiles = srcFiles.map((f) => f.replace(rootFolder, '').substr(1).replace(/\\/g, '/'));
+
+    fs.writeFileSync(
+      filePath,
+      twigCompile('binding.gyp', {
+        folders: libraryFolders(options),
+        platform: process.platform,
+        srcFiles,
+      }),
+    );
+  });
+};
 
 /**
  * CMake
  */
 const configureCMakeListsTxt = () => {
-  try {
+  ewrap(() => {
     const filePath = path.join(__dirname, '..', 'CMakeLists.txt');
     console.debug(`Configuring ${filePath} ...`.brightBlue);
     fs.writeFileSync(
@@ -30,17 +54,14 @@ const configureCMakeListsTxt = () => {
         hasNan: haveNanInPackagesJson(),
       }),
     );
-  } catch (e) {
-    console.error(`Failed: ${e.message} on ${e.stack}`.red);
-    process.exit(1);
-  }
+  });
 };
 
 /**
  * Xmake
  */
 const configureXmakeLua = () => {
-  try {
+  ewrap(() => {
     const filePath = path.join(__dirname, '..', 'xmake.lua');
     console.debug(`Configuring ${filePath} ...`.brightBlue);
     fs.writeFileSync(
@@ -50,14 +71,15 @@ const configureXmakeLua = () => {
         platform: process.platform,
       }),
     );
-  } catch (e) {
-    console.error(`Failed: ${e.message} on ${e.stack}`.red);
-    process.exit(1);
-  }
+  });
 };
 
+/*******************************************************************************
+ * Build Systems
+ ******************************************************************************/
+
 /**
- * Compilers
+ * Reset everything to default
  */
 const configureCompilerClear = () => {
   delete packageJson.gypfile;
@@ -78,6 +100,9 @@ const configureCompilerClear = () => {
   delete packageJson.scripts['prebuild:dev'];
 };
 
+/**
+ * Configure for CMake
+ */
 const configureCompilerCmake = () => {
   packageJson.scripts = packageJson.scripts || {};
   packageJson.scripts.install = 'npm run build:addon ' + (packageJson.scripts.install || '');
@@ -88,6 +113,9 @@ const configureCompilerCmake = () => {
   configureCMakeListsTxt();
 };
 
+/**
+ * Configure for Node-Gyp
+ */
 const configureCompilerGyp = () => {
   packageJson.gypfile = true;
 
@@ -96,8 +124,12 @@ const configureCompilerGyp = () => {
     /build:addon:[^\s]+/,
     'build:addon:gyp',
   );
+  configureBindingGyp();
 };
 
+/**
+ * Configure for XMake
+ */
 const configureCompilerXmake = () => {
   packageJson.scripts = packageJson.scripts || {};
   packageJson.scripts.install = 'npm run build:addon ' + (packageJson.scripts.install || '');
@@ -117,8 +149,8 @@ const configureCompilerXmake = () => {
  * VSCode Configuration
  ******************************************************************************/
 
-const vscodeConfigureLaunchJson = async () => {
-  try {
+const vscodeConfigureLaunchJson = () => {
+  ewrap(async () => {
     const filePath = path.join(__dirname, '..', '.vscode', 'launch.json');
     console.debug(`Configuring ${filePath} ...`.brightBlue);
     const rootFolder = path.join(__dirname, '..');
@@ -131,14 +163,11 @@ const vscodeConfigureLaunchJson = async () => {
         testFiles: testFiles.map((f) => f.replace(rootFolder, '.')),
       }),
     );
-  } catch (e) {
-    console.error(`Failed: ${e.message} on ${e.stack}`.red);
-    process.exit(1);
-  }
+  });
 };
 
 const vscodeConfigureCCppPropertiesJson = () => {
-  try {
+  ewrap(() => {
     const filePath = path.join(__dirname, '..', '.vscode', 'c_cpp_properties.json');
     console.log(`Configuring ${filePath} ...`.brightBlue);
     const data = require('./configure/c_cpp_properties.json');
@@ -151,28 +180,22 @@ const vscodeConfigureCCppPropertiesJson = () => {
         return item;
       });
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-  } catch (e) {
-    console.error(`Failed: ${e.message} on ${e.stack}`.red);
-    process.exit(1);
-  }
+  });
 };
 
 const vscodeConfigureCompileFlagsTxt = () => {
-  try {
+  ewrap(() => {
     const filePath = path.join(__dirname, '..', 'compile_flags.txt');
     console.debug(`Configuring ${filePath} ...`.brightBlue);
     fs.writeFileSync(filePath, twigCompile('compile_flags.txt', {folders: libraryFolders(options)}));
-  } catch (e) {
-    console.error(`Failed: ${e.message} on ${e.stack}`.red);
-    process.exit(1);
-  }
+  });
 };
 
 /**
  *
  */
 const vscodeConfigureSettingsJson = () => {
-  try {
+  ewrap(() => {
     const filePath = path.join(__dirname, '..', '.vscode', 'settings.json');
     console.log(`Configuring ${filePath} ...`.brightBlue);
     const data = require('./configure/settings.json');
@@ -183,10 +206,7 @@ const vscodeConfigureSettingsJson = () => {
       };
     }
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-  } catch (e) {
-    console.error(`Failed: ${e.message} on ${e.stack}`.red);
-    process.exit(1);
-  }
+  });
 };
 
 /*******************************************************************************
@@ -199,14 +219,11 @@ const vscodeConfigureSettingsJson = () => {
  * Write package.json
  */
 const configurePackageJson = () => {
-  try {
+  ewrap(() => {
     const filePath = path.join(__dirname, '..', 'package.json');
     console.log(`Configuring ${filePath} ...`.brightBlue);
     fs.writeFileSync(path.join(__dirname, '..', 'package.json'), JSON.stringify(packageJson, null, 2));
-  } catch (e) {
-    console.error(`Failed: ${e.message} on ${e.stack}`.red);
-    process.exit(1);
-  }
+  });
 };
 
 /**

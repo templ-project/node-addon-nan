@@ -171,6 +171,15 @@ async function pspawn(command, timeout = 20000) {
   });
 }
 
+const ewrap = (callable) => {
+  try {
+    callable();
+  } catch (e) {
+    console.error(`Failed: ${e.message} on ${e.stack}`.red);
+    process.exit(1);
+  }
+};
+
 module.exports = {
   nodeLibLocationCmake,
   nodeLibLocationGyp,
@@ -179,6 +188,7 @@ module.exports = {
   supportedBuildSystems,
   supportedIdes,
 
+  ewrap,
   getCommandPath,
   haveNanInPackagesJson,
   haveNapiInPackagesJson,
