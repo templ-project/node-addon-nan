@@ -28,6 +28,7 @@
     "lint:watch": "nodemon --exec 'npm run lint'",
     "lint:write": "npm run lint:cpp:write && npm run lint:js:write",
     "lint": "npm run lint:cpp && npm run lint:js",
+    "postinstall": "husky install",
     "prebuild": "npm run clean",
     "prebuildc:dev": "npm run clean",
     "prebuildc": "npm run clean",
