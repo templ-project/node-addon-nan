@@ -20,12 +20,12 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
     if_unmet_nan_throw(
         Nan::New("World").ToLocal(&who), Nan::ThrowError, "unable to allocate")
   } else {
-    if (!info[0]->IsString()) {
-      Nan::ThrowTypeError("Wrong arguments");
-    }
-    if_unmet_nan_throw(info[0]->ToString(context).ToLocal(&who),
-                       Nan::ThrowRangeError,
-                       "could not read arguments")
+    if_unmet_nan_throw(info[0]->IsString(),
+                       Nan::ThrowTypeError,
+                       "Invalid argument type; expecting string.")
+        if_unmet_nan_throw(info[0]->ToString(context).ToLocal(&who),
+                           Nan::ThrowRangeError,
+                           "could not read arguments")
   }
 
   v8::Local<v8::String> hello;
