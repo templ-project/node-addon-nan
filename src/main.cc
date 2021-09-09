@@ -44,8 +44,8 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 }
 
 void Init(v8::Local<v8::Object> exports,
-          v8::Local<v8::Value> module,
-          void* priv) {
+          v8::Local<v8::Value> /*module*/,
+          void* /*priv*/) {
   v8::Local<v8::Context> context = exports->CreationContext();
   bool hasConverted = true;
   if_unmet_nan_throw(exports
