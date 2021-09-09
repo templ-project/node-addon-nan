@@ -55,13 +55,7 @@
 - [Templ Node.js Addon Nan](#templ-nodejs-addon-nan)
   - [Getting Started](#getting-started)
     - [Project Description](#project-description)
-      - [Build Systems](#build-systems)
-        - [Node-Gyp](#node-gyp)
-        - [CMake-Js](#cmake-js)
-        - [XMake](#xmake)
-      - [Supported IDEs](#supported-ides)
-        - [Visual Studio Code + Extensions](#visual-studio-code--extensions)
-        - [CLion](#clion)
+      - [Linters, Code Analysis, Formatters](#linters-code-analysis-formatters)
         - [Javascript](#javascript)
         - [C++](#c)
         - [Generic](#generic)
@@ -69,8 +63,8 @@
         - [pre-commit](#pre-commit)
         - [commit-msg](#commit-msg)
     - [Prerequisites / Dependencies](#prerequisites--dependencies)
-        - [For MacOS](#for-macos)
         - [For Linux](#for-linux)
+        - [For MacOS](#for-macos)
         - [For Windows](#for-windows)
       - [Known Issues / Troubleshooting](#known-issues--troubleshooting)
     - [Installation](#installation)
@@ -97,91 +91,7 @@ Project configuration is done using `.scripts/configure.js` script (as it is des
 
 When a build system configuration file is generated, please do not manually alter that file, but alter it's template from `.scripts/configure` and then run the configuration command as described bellow.
 
-#### Build Systems
-
-##### Node-Gyp
-
-As we already know **[node-gyp](https://github.com/nodejs/node-gyp)** is the default and official builder for NodeJs addons and, also, **the one we recommend**, but since there are a multitude or C++ build systems out there, it is not the single one. See the next sections for other build systems.
-
-To configure the project to use **node-gyp**, run the following command.
-
-```bash
-node .scripts/configure.js -x gyp
-```
-
-This will generate the `binding.gyp` file & adapt `package.json` to use **node-gyp** as default build system. 
-
-> The current `.huksy/pre-commit` hook, will force this configuration no matter what, since, as we already declared, this is the default build system the project will use. To change this default setting, please take in consideration changing the hook file.
-
-To read more about [node-gyp](https://github.com/nodejs/node-gyp) and [Gyp](https://gyp.gsrc.io/) *(the build system it is based on)*, we invite you to read more on their official pages.
-
-##### CMake-Js
-
-**[cmake-js](https://www.npmjs.com/package/cmake-js)** appeared from people's desire to use [CMake](https://cmake.org/) as the builder for NodeJs addons.
-
-We added **cmake-js** to the project out of two reasons:
-* to add support for a better development using of the [CLion](https://www.jetbrains.com/clion/) IDE.
-* to add support for CMake and help people who use it with a standard template for NodeJs addons development
-
-To configure the project to use **cmake-js**, run the following command.
-
-```bash
-node .scripts/configure.js -x cmake
-```
-
-This will generate the `CMakeLists.txt` file & adapt `package.json` to use **node-gyp** as default build system.
-
-To fully understand how to use **cmake-js** as the default build system, please read the comments from the [Node-Gyp](#node-gyp) section regarding the `./kusky/pre-commit` hook, and, also, read the [**cmake-js**](https://www.npmjs.com/package/cmake-js) documentation on how to reconfigure the `package.json` scripts for the code to build at install.
-
-##### XMake
-
-> **Help required**, if you're interested in making this smth greater.
-
-**[xmake](https://xmake.io/)** appears in this list out of our curiosity on this specific build system. It does not have a default npm package, so use this configuration on your own risk.
-
-To configure the project to use **xmake**, make sure you have [xmake installed](https://xmake.io/#/guide/installation), then run the following command.
-
-```bash
-node .scripts/configure.js -x xmake
-```
-
-This will generate the `xmake.lua` file & adapt `package.json` to use **node-gyp** as default build system.
-
-#### Supported IDEs
-
-##### Visual Studio Code + Extensions
-
-Our config scripts have been addapted to work with either of the two C++ extensions for VS Code:
-* [Microsoft C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
-* [clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd)
-
-
-To configure the script for VS Code, please see the following commands.
-
-```bash
-# for Microsoft C/C++ Extension
-node .scripts/configure.js -x <buildSystem> -i vscode
-# for Clangd Extension
-node .scripts/configure.js -x <buildSystem> -i vscode -ucl
-```
-
-> Read more about configuring Visual Studio Code [here](manual/configure_vscode.md)
-
-##### CLion
-
-CLion is currently compatible with [CMake](https://cmake.org/) only. You can still use other build systems for building the project, however you will require a `CMakeLists.txt` file, for CLion to be able to initialize the project properly.
-
-To configure the script for CLion, please see the following commands.
-
-```bash
-# if you use CMake as a build system
-node .scripts/configure.js -i clion
-# if you wish to change the build system to something else
-# this will still generate the CMakeLists.txt file
-node .scripts/configure.js -x <buildSystem> -i clion
-```
-> Read more about configuring CLion [here](manual/configure_clion.md)
-configure_clion.md Linters, Formatters, Code Analysis
+#### Linters, Code Analysis, Formatters
 
 ##### Javascript
 - [dependency-cruiser](https://github.com/sverweij/dependency-cruiser) for code analisys, will check dependencies & how they're imported
@@ -214,13 +124,10 @@ Found in `.husky/commit-msg`, script will run a [commitlint](https://commitlint.
 
 ### Prerequisites / Dependencies
 
-##### For MacOS
-
-> Help required. Project is not yet configured for MacOS.
-
 ##### For Linux
 
 - Please install `git`, `gcc/g++`, `make`
+- Please install `clang-formatter` && `clang-tidy`
 - Please also install Python 3.6 or above.
 - Depending on the build system, please install: 
   - **NodeGyp**: All requirements are set as default in the above list.
@@ -237,12 +144,18 @@ sudo apt-get install cmake
 # for XMake (see https://xmake.io/#/guide/installation)
 bash <(curl -fsSL https://xmake.io/shget.text)
 ```
+
+##### For MacOS
+
+> Help required. Project is not yet configured for MacOS.
+
 ##### For Windows
 
 - Please install [git-scm](https://git-scm.com/download/win) tool.
 - Please install [Microsoft Build Tools 2017](https://visualstudio.microsoft.com/) or, at least [Microsoft Visual Studio Community 2019 ](https://visualstudio.microsoft.com/vs/)
   - Or, run `npm i -g windows-build-tools` (will silent install Microsoft Build Tools 2017)
 - Please install [Python 3.6 or above](https://www.python.org/downloads/windows/)
+- Please install [clang+llvm](https://github.com/llvm/llvm-project/releases/tag/llvmorg-12.0.1)
 <!-- - Please install `make`
   - [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
   - [make](https://sourceforge.net/projects/ezwinports/files/) from [ezwinports](https://sourceforge.net/projects/ezwinports/files/)
@@ -265,7 +178,7 @@ bash <(curl -fsSL https://xmake.io/shget.text)
 ### Installation
 
 ```bash
-git clone https://github.com/templ-project/nodejs-addon-nanjs-addon-nan your_project
+git clone https://github.com/templ-project/nodejs-addon-nan your_project
 cd your_project
 rm -rf .git
 git init
@@ -273,14 +186,13 @@ git add remote origin https://url/to/your/project/repository
 git add .
 git commit -am "init"
 git push origin master
-npm run change:language -- javascript # to use javascript
-# or
-# npm run change:language -- typescript # to use typescript
 npm install
 # yarn install
 # pnpm install
+node .scripts/configure -x gyp -e vscode -ucl
 ```
 
+Read [here](manual/configure_command.md) more about the rest of the integrated build systems & the supported IDEs.
 ### Development
 
 #### Requirements

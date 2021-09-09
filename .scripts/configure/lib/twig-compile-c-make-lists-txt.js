@@ -2,6 +2,7 @@ const colors = require('colors');
 const fs = require('fs');
 const path = require('path');
 
+const bp = require('./utils-back-path');
 const ewrap = require('./utils-error-wrap');
 const libraryFolders = require('./utils-library-folders');
 const packageJsonContainsNan = require('./package-json-contains-nan');
@@ -17,7 +18,7 @@ const twigCompile = require('./twig-compile');
  */
 module.exports = (options) => {
   ewrap(() => {
-    const filePath = path.join(__dirname, '..', '..', '..', 'CMakeLists.txt');
+    const filePath = path.join(__dirname, ...bp(3), 'CMakeLists.txt');
     console.debug(`Configuring ${filePath} ...`.brightBlue);
     fs.writeFileSync(
       filePath,

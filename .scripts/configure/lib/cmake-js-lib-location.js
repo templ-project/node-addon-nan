@@ -10,7 +10,7 @@ module.exports = {
   android: '',
   darwin: '',
   freebsd: '',
-  linux: path.join(process.env.HOME || '~', '.cache', 'node-gyp', nodeVersion, 'include', 'node'),
+  linux: path.join(process.env.HOME || '~', '.cmake-js', 'node-x64', process.version, 'include', 'node'),
   openbsd: '',
   sunos: '',
   // C:\Users\${user}\.cmake-js\node-x64\v12.20.2\include\node

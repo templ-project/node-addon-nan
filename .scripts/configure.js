@@ -44,7 +44,7 @@ program
 program.parse(process.argv);
 const options = program.opts();
 
-console.log(options);
+// console.log(options);
 
 (async () => {
   bsConfigure(options);
