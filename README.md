@@ -1,26 +1,26 @@
-# Templ Node.js Addon Nan
+# Templ Node.js Addon Napi
 
 <!-- https://hits.seeyoufarm.com/ -->
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Ftempl-project%2Fnode&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-[![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/templ-project/nodejs-addon-nan/issues)
+[![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/templ-project/nodejs-addon-node_api/issues)
 
 ![JSCPD](.jscpd/jscpd-badge.svg?raw=true)
 
-<!-- [![TravisCI](https://travis-ci.org/templ-project/nodejs-addon-nan.svg?branch=master)](https://travis-ci.org/templ-project/nodejs-addon-nan) -->
+<!-- [![TravisCI](https://travis-ci.org/templ-project/nodejs-addon-node_api.svg?branch=master)](https://travis-ci.org/templ-project/nodejs-addon-node_api) -->
 <!-- CI Badges -->
-<!-- [![CircleCI](https://circleci.com/gh/templ-project/nodejs-addon-nan.svg?style=shield)](https://circleci.com/gh/templ-project/nodejs-addon-nan) -->
+<!-- [![CircleCI](https://circleci.com/gh/templ-project/nodejs-addon-node_api.svg?style=shield)](https://circleci.com/gh/templ-project/nodejs-addon-node_api) -->
 
-[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-nan&metric=alert_status)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-nan)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-nan&metric=code_smells)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-nan)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-nan&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-nan)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-nan&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-nan)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-nan&metric=security_rating)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-nan)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-node_api&metric=alert_status)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-node_api)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-node_api&metric=code_smells)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-node_api)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-node_api&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-node_api)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-node_api&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-node_api)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-node_api&metric=security_rating)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-node_api)
 
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-nan&metric=ncloc)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-nan)
-[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-nan&metric=coverage)](https://sonarcloud.io/component_measures/metric/coverage/list?id=templ-project_nodejs-addon-nan)
-[![SonarCloud Bugs](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-nan&metric=bugs)](https://sonarcloud.io/component_measures/metric/reliability_rating/list?id=templ-project_nodejs-addon-nan)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-nan&metric=sqale_index)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-nan)
-[![SonarCloud Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-nan&metric=vulnerabilities)](https://sonarcloud.io/component_measures/metric/security_rating/list?id=templ-project_nodejs-addon-nan)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-node_api&metric=ncloc)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-node_api)
+[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-node_api&metric=coverage)](https://sonarcloud.io/component_measures/metric/coverage/list?id=templ-project_nodejs-addon-node_api)
+[![SonarCloud Bugs](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-node_api&metric=bugs)](https://sonarcloud.io/component_measures/metric/reliability_rating/list?id=templ-project_nodejs-addon-node_api)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-node_api&metric=sqale_index)](https://sonarcloud.io/dashboard?id=templ-project_nodejs-addon-node_api)
+[![SonarCloud Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=templ-project_nodejs-addon-node_api&metric=vulnerabilities)](https://sonarcloud.io/component_measures/metric/security_rating/list?id=templ-project_nodejs-addon-node_api)
 
 <!-- Donation Badges -->
 [![Donate to this project using Patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://patreon.com/dragoscirjan)
@@ -37,22 +37,22 @@
 [![Buy an item on our wishlist for us](https://img.shields.io/badge/wishlist-donate-yellow.svg)](https://dragoscirjan.me/wishlist)
 -->
 
-<img alt="JavaScript Logo" src="https://github.com/templ-project/nodejs-addon-nanjs-addon-nan/blob/master/javascript.svg?raw=true" width="20%" align="right" />
+<img alt="JavaScript Logo" src="https://github.com/templ-project/nodejs-addon-node_apijs-addon-node_api/blob/master/javascript.svg?raw=true" width="20%" align="right" />
 
 <!-- Project Description Starts Here -->
 
 
 > *Any fool can write code that a computer can understand. Good programmers write code that humans can understand.* – Martin Fowler
 
-> **nodejs-addon-nan** is a template project, designed by [Templ Project](http://templ-project.github.io). Please download it and adapt it as you see fit.
+> **nodejs-addon-node_api** is a template project, designed by [Templ Project](http://templ-project.github.io). Please download it and adapt it as you see fit.
 >
-> **nodejs-addon-nan** includes instructions for initializing a new
-> **NodeJs Nan** addon project, and configuring it for development, unit
+> **nodejs-addon-node_api** includes instructions for initializing a new
+> **NodeJs Napi** addon project, and configuring it for development, unit
 > testing as well as code linting and analysis.
 
 <!-- TOC -->
 
-- [Templ Node.js Addon Nan](#templ-nodejs-addon-nan)
+- [Templ Node.js Addon Napi](#templ-nodejs-addon-napi)
   - [Getting Started](#getting-started)
     - [Project Description](#project-description)
       - [Linters, Code Analysis, Formatters](#linters-code-analysis-formatters)
@@ -178,7 +178,7 @@ bash <(curl -fsSL https://xmake.io/shget.text)
 ### Installation
 
 ```bash
-git clone https://github.com/templ-project/nodejs-addon-nan your_project
+git clone https://github.com/templ-project/nodejs-addon-node_api your_project
 cd your_project
 rm -rf .git
 git init
@@ -247,7 +247,7 @@ npm run release
 
 ## Issues / Support
 
-Add a set of links to the [issues](/templ-project/nodejs-addon-nanjs-addon-nan/issues) page/website, so people can know where to add issues/bugs or ask for support.
+Add a set of links to the [issues](/templ-project/nodejs-addon-node_apijs-addon-node_api/issues) page/website, so people can know where to add issues/bugs or ask for support.
 
 ## License
 
