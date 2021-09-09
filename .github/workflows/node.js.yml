@@ -42,7 +42,7 @@ jobs:
     #   run: bash <(curl -fsSL https://xmake.io/shget.text)
     #   if: ${{ matrix.build-system == 'xmake' }}
     - name: Init
-      run: npm i && node .scripts/configure.js -x ${{ matrix.build-system }}
+      run: npm i && node .scripts/configure.js -x ${{ matrix.build-system }} -e none
     - name: Code Analysis
       run: npm run ca
     - name: Code UnitTests
