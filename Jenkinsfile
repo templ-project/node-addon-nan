@@ -50,7 +50,7 @@ pipeline {
             }
             script {
               nvm.runSh """
-                node .scripts/configure.js -x gyp
+                node .scripts/configure.js -x gyp -e none
               """, params.NODE_VERSION
             }
           }
