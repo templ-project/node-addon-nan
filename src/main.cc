@@ -18,26 +18,26 @@ void Hello(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   if (info.Length() < 1) {
     if_unmet_nan_throw(
-        Nan::New("World").ToLocal(&who), Nan::ThrowError, "unable to allocate");
+        Nan::New("World").ToLocal(&who), Nan::ThrowError, "unable to allocate")
   } else {
     if (!info[0]->IsString()) {
       Nan::ThrowTypeError("Wrong arguments");
     }
     if_unmet_nan_throw(info[0]->ToString(context).ToLocal(&who),
                        Nan::ThrowRangeError,
-                       "could not read arguments");
+                       "could not read arguments")
   }
 
   v8::Local<v8::String> hello;
-  if_unmet_nan_throw(Nan::New("Hello ").ToLocal(&hello),
-                     Nan::ThrowError,
-                     "unable to allocate");
-
-  v8::Local<v8::String> em;
   if_unmet_nan_throw(
-      Nan::New("!").ToLocal(&em), Nan::ThrowError, "unable to allocate");
+      Nan::New("Hello ").ToLocal(&hello), Nan::ThrowError, "unable to allocate")
 
-  hello = v8::String::Concat(isolate, hello, who);
+      v8::Local<v8::String>
+          em;
+  if_unmet_nan_throw(
+      Nan::New("!").ToLocal(&em), Nan::ThrowError, "unable to allocate")
+
+      hello = v8::String::Concat(isolate, hello, who);
   hello = v8::String::Concat(isolate, hello, em);
 
   info.GetReturnValue().Set(hello);
