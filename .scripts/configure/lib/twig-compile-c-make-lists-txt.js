@@ -3,8 +3,11 @@ const fs = require('fs');
 const path = require('path');
 
 const bp = require('./utils-back-path');
+const cmakeJsLibLocation = require('./cmake-js-lib-location');
 const ewrap = require('./utils-error-wrap');
 const libraryFolders = require('./utils-library-folders');
+const nodeModulesNanFolder = require('./node-modules-nan-folder');
+const nodeModulesNapiFolder = require('./node-modules-napi-folder');
 const packageJsonContainsNan = require('./package-json-contains-nan');
 const packageJsonContainsNapi = require('./package-json-contains-napi');
 const twigCompile = require('./twig-compile');
@@ -20,10 +23,19 @@ module.exports = (options) => {
   ewrap(() => {
     const filePath = path.join(__dirname, ...bp(3), 'CMakeLists.txt');
     console.debug(`Configuring ${filePath} ...`.brightBlue);
+
+    // re-map all node folder inclues with cmake-js variables
+    const folders = libraryFolders(options).map((folder) => {
+      return folder
+        .replace(cmakeJsLibLocation[process.platform], '${CMAKE_CURRENT_BINARY_DIR}/node/${NODEJS_VERSION}/include')
+        .replace(nodeModulesNanFolder, '${CMAKE_HOME_DIRECTORY}/node_modules/nan')
+        .replace(nodeModulesNapiFolder, '${CMAKE_HOME_DIRECTORY}/node_modules/node-addon-api');
+    });
+
     fs.writeFileSync(
       filePath,
       twigCompile('CMakeLists.txt', {
-        folders: libraryFolders(options),
+        folders,
         hasNapi: packageJsonContainsNapi(),
         hasNan: packageJsonContainsNan(),
         cppStandards: options.cppStandard.map((x) => x.replace(/cxx|gnuxx/, '')),
