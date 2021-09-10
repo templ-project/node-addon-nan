@@ -7,6 +7,7 @@ const globby = require('globby');
 const ewrap = require('./utils-error-wrap');
 const libraryFolders = require('./utils-library-folders');
 const globbyTestFiles = require('./utils-globby-test-files');
+const osGetCommandPath = require('./os-get-command-path');
 const twigCompile = require('./twig-compile');
 
 /**
@@ -22,6 +23,7 @@ module.exports = async (options) => {
     console.debug(`Configuring ${filePath} ...`.brightBlue);
 
     const testFiles = await globbyTestFiles();
+    const nodePath = await osGetCommandPath('node');
 
     fs.writeFileSync(
       filePath,
@@ -29,6 +31,7 @@ module.exports = async (options) => {
         'launch.json',
         {
           folders: libraryFolders(options),
+          nodePath,
           platform: process.platform,
           testFiles: testFiles,
         },

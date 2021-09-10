@@ -12,7 +12,7 @@ module.exports = async (command) => {
     if (!stdout || code !== 0) {
       return '';
     }
-    return stdout;
+    return stdout.trim();
   }
   const {stdout, code} = await pspawn([
     ...'powershell -ExecutionPolicy ByPass -Command'.split(' '),
@@ -21,5 +21,5 @@ module.exports = async (command) => {
   if (!stdout || code !== 0) {
     return '';
   }
-  return stdout;
+  return stdout.trim();
 };
