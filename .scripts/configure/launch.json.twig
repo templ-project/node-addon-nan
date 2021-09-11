@@ -24,7 +24,7 @@
       "request": "launch",
       "name": "(Darwin/Linux :: mocha + gdb) Launch All",
       "preLaunchTask": "npm: build:dev",
-      "program": "node",
+      "program": "{{nodePath}}",
       "args": ["${workspaceFolder}/node_modules/mocha/bin/mocha"],
       "cwd": "${workspaceFolder}"
     }{% for file in testFiles %},
@@ -33,7 +33,7 @@
       "request": "launch",
       "name": "(Darwin/Linux :: mocha + gdb) Launch '{{file}}'",
       "preLaunchTask": "npm: build:dev",
-      "program": "node",
+      "program": "{{nodePath}}",
       "args": ["${workspaceFolder}/node_modules/mocha/bin/mocha", "{{file}}"],
       "cwd": "${workspaceFolder}"
     }{% endfor %}{% endif %}{% if platform == 'windows' %},
