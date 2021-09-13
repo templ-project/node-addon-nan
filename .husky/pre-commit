@@ -2,5 +2,5 @@
 . "$(dirname "$0")/_/husky.sh"
 
 node .scripts/configure.js -x gyp -e none
-
-npm run ca && npm run test
+npm run ca
+npm run test
