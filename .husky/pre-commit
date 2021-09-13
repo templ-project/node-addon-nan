@@ -4,3 +4,5 @@
 node .scripts/configure.js -x gyp -e none
 npm run ca
 npm run test
+
+git add -u
