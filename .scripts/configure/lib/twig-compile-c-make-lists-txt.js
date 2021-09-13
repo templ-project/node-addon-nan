@@ -46,6 +46,7 @@ module.exports = async (options) => {
       filePath,
       twigCompile('CMakeLists.txt', {
         folders,
+        srcFiles,
         hasNapi: packageJsonContainsNapi(),
         hasNan: packageJsonContainsNan(),
         cppStandards: options.cppStandard.map((x) => x.replace(/cxx|gnuxx/, '')),
