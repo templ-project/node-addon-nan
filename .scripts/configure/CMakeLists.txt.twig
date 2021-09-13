@@ -11,7 +11,11 @@ nodejs_init()
 project(main)
 
 # Build a shared library named after the project from the files in `src/`
-file(GLOB SOURCE_FILES "src/*.cc" "src/*.h")
+file(GLOB SOURCE_FILES
+{% for file in srcFiles %}
+  "{{file}}"
+{% endfor %}
+)
 
 include_directories(
   ${CMAKE_JS_INC}

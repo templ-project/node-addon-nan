@@ -5,6 +5,7 @@ const path = require('path');
 const bp = require('./utils-back-path');
 const cmakeJsLibLocation = require('./cmake-js-lib-location');
 const ewrap = require('./utils-error-wrap');
+const globbyCppFiles = require('./utils-globby-cpp-files');
 const libraryFolders = require('./utils-library-folders');
 const nodeModulesNanFolder = require('./node-modules-nan-folder');
 const nodeModulesNapiFolder = require('./node-modules-napi-folder');
@@ -19,10 +20,19 @@ const twigCompile = require('./twig-compile');
  *
  * @param {object} options
  */
-module.exports = (options) => {
-  ewrap(() => {
+module.exports = async (options) => {
+  await ewrap(async () => {
     const filePath = path.join(__dirname, ...bp(3), 'CMakeLists.txt');
     console.debug(`Configuring ${filePath} ...`.brightBlue);
+
+    let srcFiles = await globbyCppFiles();
+    srcFiles = [
+      ...new Set(
+        srcFiles
+          .map((f) => ['c', 'cc', 'cpp', 'h'].map((e) => `${path.dirname(f)}/*.${e}`))
+          .reduce((a, b) => a.concat(b), []),
+      ),
+    ];
 
     // re-map all node folder inclues with cmake-js variables
     const folders = libraryFolders(options).map((folder) => {

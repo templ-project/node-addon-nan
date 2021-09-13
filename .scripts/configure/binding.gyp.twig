@@ -4,7 +4,8 @@
       "target_name": "main",
       "sources": [
 {% for file in srcFiles %}
-        "{{file}}"
+        "{{file}}"{% if loop.last == false %},{% endif %}
+
 {% endfor %}
       ],
       "link_settings": {},

@@ -8,10 +8,13 @@ const path = require('path');
  */
 module.exports = async () => {
   const rootFolder = path.join(__dirname, '..', '..', '..');
-  const files = await globby(path.join(rootFolder, 'src', '*.c(c|pp|)'));
+  const files = await globby(path.join(rootFolder, 'src', '**', '*.c(c|pp|)'));
 
   return files
     .map((f) => f.replace(rootFolder, '').substr(1).replace(/\\/g, '/'))
+    .sort((a, b) =>
+      a.split('/').length > b.split('/').length ? -1 : a.split('/').length < b.split('/').length ? 1 : 0,
+    )
     .filter((f) => {
       // If you need to exclude files, change this function.
       return true;
