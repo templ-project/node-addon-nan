@@ -7,8 +7,10 @@ const path = require('path');
  * Modify at your own risk.
  */
 module.exports = async () => {
-  const rootFolder = path.join(__dirname, '..', '..', '..');
-  const files = await globby(path.join(rootFolder, 'src', '**', '*.c(c|pp|)'));
+  // globby does not like windows paths ???
+  const rootFolder = path.join(__dirname, '..', '..', '..').replace(/\\/g, '/');
+  const searchPath = path.join(rootFolder, 'src', '**', '*.c(c|pp|)').replace(/\\/g, '/');
+  const files = await globby(searchPath);
 
   return files
     .map((f) => f.replace(rootFolder, '').substr(1).replace(/\\/g, '/'))

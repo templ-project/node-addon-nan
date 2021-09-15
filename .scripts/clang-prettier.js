@@ -1,7 +1,8 @@
 const {spawn} = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const {osGetCommandPath, osPspawn} = require('./configure/lib');
+const osGetCommandPath = require('./configure/lib/os-get-command-path');
+const osPspawn = require('./configure/lib/os-pspawn');
 const globby = require('globby');
 const colors = require('colors');
 

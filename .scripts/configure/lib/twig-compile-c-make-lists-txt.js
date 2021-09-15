@@ -39,7 +39,8 @@ module.exports = async (options) => {
       return folder
         .replace(cmakeJsLibLocation[process.platform], '${CMAKE_CURRENT_BINARY_DIR}/node/${NODEJS_VERSION}/include')
         .replace(nodeModulesNanFolder, '${CMAKE_HOME_DIRECTORY}/node_modules/nan')
-        .replace(nodeModulesNapiFolder, '${CMAKE_HOME_DIRECTORY}/node_modules/node-addon-api');
+        .replace(nodeModulesNapiFolder, '${CMAKE_HOME_DIRECTORY}/node_modules/node-addon-api')
+        .replace(/\\/g, '/');
     });
 
     fs.writeFileSync(

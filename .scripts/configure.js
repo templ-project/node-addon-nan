@@ -1,16 +1,24 @@
 const {Command} = require('commander');
 
-const {
-  supportedBuildSystems,
-  supportedCStandards,
-  supportedCppStandards,
-  supportedIdes,
+const supportedBuildSystems = require('./configure/lib/supported-build-systems');
+const supportedCStandards = require('./configure/lib/supported-c-standards');
+const supportedCppStandards = require('./configure/lib/supported-cpp-standards');
+const supportedIdes = require('./configure/lib/supported-ides');
+const bsConfigure = require('./configure/lib/bs-configure');
+const vscodeConfigure = require('./configure/lib/vscode-configure');
+const packageJsonConfigure = require('./configure/lib/package-json-configure');
+const twigCompileCMakeListsTxt = require('./configure/lib/twig-compile-c-make-lists-txt');
+// const {
+//   supportedBuildSystems,
+//   supportedCStandards,
+//   supportedCppStandards,
+//   supportedIdes,
 
-  bsConfigure,
-  vscodeConfigure,
-  packageJsonConfigure,
-  twigCompileCMakeListsTxt,
-} = require('./configure/lib');
+//   bsConfigure,
+//   vscodeConfigure,
+//   packageJsonConfigure,
+//   twigCompileCMakeListsTxt,
+// } = require('./configure/lib');
 
 /**
  * Run Script

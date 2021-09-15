@@ -5,7 +5,9 @@ const path = require('path');
 const colors = require('colors');
 const globby = require('globby');
 
-const {osGetCommandPath, utilsLibraryFolders, osPspawn} = require('./configure/lib');
+const osGetCommandPath = require('./configure/lib/os-get-command-path');
+const osPspawn = require('./configure/lib/os-pspawn');
+const utilsLibraryFolders = require('./configure/lib/utils-library-folders');
 
 const debug = process.env.DEBUG ? true : false;
 
