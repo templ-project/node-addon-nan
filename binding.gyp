@@ -9,8 +9,11 @@
       "include_dirs": [
         "<!(node -e \"require('nan')\")"
       ],
-      "cflags": [
+      "cflags_cc": [
         "-std=c++11"
+      ],
+      "cflags_cc!": [
+        "-std=gnu++1y"
       ]
     }
   ]
