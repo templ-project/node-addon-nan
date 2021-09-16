@@ -1,5 +1,6 @@
-const globby = require('globby');
 const path = require('path');
+
+const globby = require('globby');
 
 /**
  * Detect C/CC/CPP files in the src/ folder. And returns them for all the templates that require the C++ file list.
