@@ -1,19 +1,30 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
+
+set(CMAKE_C_STANDARD {{cStandards[0]}})
+set(CMAKE_CXX_STANDARD {{cppStandards[0]}})
+
+# Include node headers
+include(./node_modules/node-cmake/NodeJS.cmake)
+nodejs_init()
 
 # Name of the project (will be the name of the plugin)
 project(main)
 
 # Build a shared library named after the project from the files in `src/`
-file(GLOB SOURCE_FILES "src/*.cc" "src/*.h")
-add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
+file(GLOB SOURCE_FILES
+{% for file in srcFiles %}
+  "{{file}}"
+{% endfor %}
+)
 
-if (CMAKE_JS_VERSION)
-else()
-  # start clion-config here
-  include_directories(/home/dragosc/.cache/node-gyp/12.20.2/include/node)
-  include_directories(/home/dragosc/Workspace/templates/node-addon-nan/node_modules/nan)
-  # end clion-config here
-endif()
+include_directories(
+  ${CMAKE_JS_INC}
+{% for folder in folders %}
+  {{folder}}
+{% endfor %}
+)
+
+add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
 
 # Gives our library file a .node extension without any "lib" prefix
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")

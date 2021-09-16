@@ -1,7 +1,0 @@
--Wall
-# start clangd-config here
--I
-/home/dragosc/.cache/node-gyp/12.20.2/include/node
--I
-/home/dragosc/Workspace/templates/node-addon-nan/node_modules/nan
-# end clangd-config here

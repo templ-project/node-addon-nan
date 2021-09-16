@@ -1,5 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run ca && npm run test
-npm run ca && npm run test
+node .scripts/configure.js -x gyp -e none
+npm run ca
+npm run test
+
+git add -u

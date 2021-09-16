@@ -2,10 +2,7 @@
 .idea
 *.code-workspace
 .vscode/*
-!.vscode/c_cpp_properties.json.template
 !.vscode/extensions.json
-!.vscode/launch.json
-!.vscode/settings.json.template
 
 # Logs
 logs
@@ -92,5 +89,9 @@ docs.json
 compile_flags.txt
 
 # cmake-js
-cmake-build-*
-CMakeLists.txt
+/cmake-build-*
+/CMakeLists.txt
+
+# xmake
+/xmake.lua
+/.xmake

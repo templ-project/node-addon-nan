@@ -1,0 +1,59 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "(Darwin/Linux/Windows :: mocha + lldb) Launch All",
+      "preLaunchTask": "npm: build:dev",
+      "program": "node",
+      "args": ["${workspaceFolder}/node_modules/mocha/bin/mocha"],
+      "cwd": "${workspaceFolder}"
+    }{% for file in testFiles %},
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "(Darwin/Linux/Windows :: mocha + lldb) Launch '{{file}}'",
+      "preLaunchTask": "npm: build:dev",
+      "program": "node",
+      "args": ["${workspaceFolder}/node_modules/mocha/bin/mocha", "{{file}}"],
+      "cwd": "${workspaceFolder}"
+    }{% endfor %}{% if platform == 'linux' %},
+    {
+      "type": "cppdbg",
+      "request": "launch",
+      "name": "(Darwin/Linux :: mocha + gdb) Launch All",
+      "preLaunchTask": "npm: build:dev",
+      "program": "{{nodePath}}",
+      "args": ["${workspaceFolder}/node_modules/mocha/bin/mocha"],
+      "cwd": "${workspaceFolder}"
+    }{% for file in testFiles %},
+    {
+      "type": "cppdbg",
+      "request": "launch",
+      "name": "(Darwin/Linux :: mocha + gdb) Launch '{{file}}'",
+      "preLaunchTask": "npm: build:dev",
+      "program": "{{nodePath}}",
+      "args": ["${workspaceFolder}/node_modules/mocha/bin/mocha", "{{file}}"],
+      "cwd": "${workspaceFolder}"
+    }{% endfor %}{% endif %}{% if platform == 'windows' %},
+    {
+      "type": "cppvsdbg",
+      "request": "launch",
+      "name": "(Windows / cppvsdbg) Launch All",
+      "preLaunchTask": "npm: build:dev",
+      "program": "node",
+      "args": ["${workspaceFolder}/node_modules/mocha/bin/mocha"],
+      "cwd": "${workspaceFolder}"
+    }{% for file in testFiles %},
+    {
+      "type": "cppvsdbg",
+      "request": "launch",
+      "name": "(Windows / cppvsdbg) Launch '{{file}}'",
+      "preLaunchTask": "npm: build:dev",
+      "program": "node",
+      "args": ["${workspaceFolder}/node_modules/mocha/bin/mocha", "{{file}}"],
+      "cwd": "${workspaceFolder}"
+    }{% endfor %}{% endif %}
+  ]
+}

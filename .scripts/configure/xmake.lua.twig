@@ -1,0 +1,69 @@
+set_languages({{languages}})
+
+{% for folder in folders %}
+	add_includedirs('{{folder}}')
+{% endfor %}
+
+add_rules("mode.debug")
+
+{% if platform == 'win32' %}
+	-- add_ldflags('-undefined dynamic_lookup', {force = true})
+
+	add_linkdirs("{{folders[0]}}/../../$(arch)")
+	add_links("node")
+
+	target('node-gyp')
+	  set_kind('shared')
+	  set_extension('.lib')
+	  add_files('$(projectdir)/node_modules/node-gyp/src/*.cc')
+	  add_defines(
+	    "USING_UV_SHARED=1",
+	    "USING_V8_SHARED=1",
+	    "V8_DEPRECATION_WARNINGS=1",
+	    "V8_DEPRECATION_WARNINGS",
+	    "V8_IMMINENT_DEPRECATION_WARNINGS",
+	    "WIN32",
+	    "_CRT_SECURE_NO_DEPRECATE",
+	    "_CRT_NONSTDC_NO_DEPRECATE",
+	    "_HAS_EXCEPTIONS=0",
+	    "OPENSSL_NO_PINSHARED",
+	    "OPENSSL_THREADS",
+	    "BUILDING_NODE_EXTENSION",
+	    "HOST_BINARY=\"node.exe\"",
+	    "_WINDLL"
+	  )
+{% endif %}
+
+target('main')
+  set_kind('shared')
+  set_extension('.node')
+  add_files('$(projectdir)/src/*.cc')
+  after_build(function (target)
+    os.mv(target:targetfile(), "$(buildir)/main.node")
+  end)
+{% if platform == 'win32' %}
+	add_deps('node-gyp')
+{% endif %}
+  add_defines(
+    "USING_UV_SHARED=1",
+    "USING_V8_SHARED=1",
+    "V8_DEPRECATION_WARNINGS=1",
+    "V8_DEPRECATION_WARNINGS",
+    "V8_IMMINENT_DEPRECATION_WARNINGS",
+    "OPENSSL_NO_PINSHARED",
+    "OPENSSL_THREADS",
+    "BUILDING_NODE_EXTENSION",
+{% if platform == 'linux' %}
+	  "_LARGEFILE_SOURCE",
+    "_FILE_OFFSET_BITS=64",
+    "__STDC_FORMAT_MACROS"
+{% endif %}
+{% if platform == 'win32' %}
+	  "WIN32",
+    "_CRT_SECURE_NO_DEPRECATE",
+    "_CRT_NONSTDC_NO_DEPRECATE",
+    "_HAS_EXCEPTIONS=0",
+    "HOST_BINARY=\"node.exe\"",
+    "_WINDLL"
+{% endif %}
+  )

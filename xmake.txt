@@ -1,0 +1,60 @@
+Project "C:\Users\dragosc\Workspace\templates\nodejs-addon-nan\build\binding.sln" on node 1 (default targets).
+ValidateSolutionConfiguration:
+  Building solution configuration "Release|x64".
+Project "C:\Users\dragosc\Workspace\templates\nodejs-addon-nan\build\binding.sln" (1) is building "C:\Users\dragosc\Workspac
+e\templates\nodejs-addon-nan\build\main.vcxproj" (2) on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "Release\obj\main\".
+  Creating directory "Release\obj\main\main.tlog\".
+InitializeBuildStatus:
+  Creating "Release\obj\main\main.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+MakeDirsForCl:
+  Creating directory "C:\Users\dragosc\Workspace\templates\nodejs-addon-nan\build\Release\obj\main\src".
+ClCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.27.29110\bin\HostX64\x64\CL.exe /c /I"C:\U
+  sers\dragosc\AppData\Local\node-gyp\Cache\12.20.2\include\node" /I"C:\Users\dragosc\AppData\Local\node-gyp\Cache\12.20.2\s
+  rc" /I"C:\Users\dragosc\AppData\Local\node-gyp\Cache\12.20.2\deps\openssl\config" /I"C:\Users\dragosc\AppData\Local\node-g
+  yp\Cache\12.20.2\deps\openssl\openssl\include" /I"C:\Users\dragosc\AppData\Local\node-gyp\Cache\12.20.2\deps\uv\include" /
+  I"C:\Users\dragosc\AppData\Local\node-gyp\Cache\12.20.2\deps\zlib" /I"C:\Users\dragosc\AppData\Local\node-gyp\Cache\12.20.
+  2\deps\v8\include" /I..\node_modules\nan /Z7 /nologo /W3 /WX- /diagnostics:column /MP /Ox /Ob2 /Oi /Ot /Oy /GL /D NODE_GYP
+  _MODULE_NAME=main /D USING_UV_SHARED=1 /D USING_V8_SHARED=1 /D V8_DEPRECATION_WARNINGS=1 /D V8_DEPRECATION_WARNINGS /D V8_
+  IMMINENT_DEPRECATION_WARNINGS /D WIN32 /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _HAS_EXCEPTIONS=0 /D OP
+  ENSSL_NO_PINSHARED /D OPENSSL_THREADS /D BUILDING_NODE_EXTENSION /D "HOST_BINARY=\"node.exe\"" /D _WINDLL /GF /Gm- /MT /GS
+   /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR- /Fo"Release\obj\main\\src\main.obj" /Fd"Release\obj\main\vc142.p
+  db" /Gd /TP /wd4351 /wd4355 /wd4800 /wd4251 /wd4275 /wd4244 /wd4267 /FC /errorReport:queue ..\src\main.cc
+  main.cc
+  C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.27.29110\bin\HostX64\x64\CL.exe /c /I"C:\U
+  sers\dragosc\AppData\Local\node-gyp\Cache\12.20.2\include\node" /I"C:\Users\dragosc\AppData\Local\node-gyp\Cache\12.20.2\s
+  rc" /I"C:\Users\dragosc\AppData\Local\node-gyp\Cache\12.20.2\deps\openssl\config" /I"C:\Users\dragosc\AppData\Local\node-g
+  yp\Cache\12.20.2\deps\openssl\openssl\include" /I"C:\Users\dragosc\AppData\Local\node-gyp\Cache\12.20.2\deps\uv\include" /
+  I"C:\Users\dragosc\AppData\Local\node-gyp\Cache\12.20.2\deps\zlib" /I"C:\Users\dragosc\AppData\Local\node-gyp\Cache\12.20.
+  2\deps\v8\include" /I..\node_modules\nan /Z7 /nologo /W3 /WX- /diagnostics:column /MP /Ox /Ob2 /Oi /Ot /Oy /GL /D NODE_GYP
+  _MODULE_NAME=main /D USING_UV_SHARED=1 /D USING_V8_SHARED=1 /D V8_DEPRECATION_WARNINGS=1 /D V8_DEPRECATION_WARNINGS /D V8_
+  IMMINENT_DEPRECATION_WARNINGS /D WIN32 /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _HAS_EXCEPTIONS=0 /D OP
+  ENSSL_NO_PINSHARED /D OPENSSL_THREADS /D BUILDING_NODE_EXTENSION /D "HOST_BINARY=\"node.exe\"" /D _WINDLL /GF /Gm- /MT /GS
+   /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR- /Fo"Release\obj\main\\" /Fd"Release\obj\main\vc142.pdb" /Gd /TP
+  /wd4351 /wd4355 /wd4800 /wd4251 /wd4275 /wd4244 /wd4267 /FC /errorReport:queue "C:\Users\dragosc\Workspace\templates\nodej
+  s-addon-nan\node_modules\node-gyp\src\win_delay_load_hook.cc"
+  win_delay_load_hook.cc
+Link:
+  C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.27.29110\bin\HostX64\x64\link.exe /ERRORRE
+  PORT:QUEUE /OUT:"C:\Users\dragosc\Workspace\templates\nodejs-addon-nan\build\Release\main.node" /INCREMENTAL:NO /NOLOGO ke
+  rnel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.
+  lib DelayImp.lib "C:\\Users\\dragosc\\AppData\\Local\\node-gyp\\Cache\\12.20.2\\x64\\node.lib" Delayimp.lib /DELAYLOAD:nod
+  e.exe /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\dragosc\Workspace\
+  templates\nodejs-addon-nan\build\Release\main.pdb" /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /MACHINE:X64 /LTCG:IN
+  CREMENTAL /ignore:4199 /DLL Release\obj\main\win_delay_load_hook.obj
+  Release\obj\main\\src\main.obj
+     Creating library C:\Users\dragosc\Workspace\templates\nodejs-addon-nan\build\Release\main.lib and object C:\Users\drago
+  sc\Workspace\templates\nodejs-addon-nan\build\Release\main.exp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 87 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  main.vcxproj -> C:\Users\dragosc\Workspace\templates\nodejs-addon-nan\build\Release\\main.node
+FinalizeBuildStatus:
+  Deleting file "Release\obj\main\main.tlog\unsuccessfulbuild".
+  Touching "Release\obj\main\main.tlog\main.lastbuildstate".
+Done Building Project "C:\Users\dragosc\Workspace\templates\nodejs-addon-nan\build\main.vcxproj" (default targets).
+
+Done Building Project "C:\Users\dragosc\Workspace\templates\nodejs-addon-nan\build\binding.sln" (default targets).

@@ -11,37 +11,15 @@
 
 <!-- /TOC -->
 
-> CLion is a very gifted C/C++ IDE. However we could not make clion work with `node-gyp`. Instead, when using CLion, please use `node .scripts/clion-config.js --use-cmake-js` for now.
-> 
-> You can still use `node-gyp` to build the project, but CLion needs to be configured using `cmake-js`. We hope to fix this soon.
-> 
-> By default, CLion is configured to use CMake
+> CLion is a very gifted C/C++ IDE. However we cannot make it work with `node-gyp`. Instead, we're going to configure the project to use `cmake-js`. This will generate the `CMakeLists.txt` file that CLion requires in order to run properly.
+>
+> You can still use `node-gyp` to build the project, but CLion needs to be configured using `cmake-js`.
 
 ### CMake
 
-For this, a default [CMakeLists.tst](../CMakeLists.tst) file has been added to the project. File that can be adapted to the node version you want to develop for, by running `node .scripts/clion-config.js`.
+In order to configure the project to be compatible with CLion, please run `node .scripts/configure.js -i clion -x <buildSystem>`. 
 
-> The adaptation of the `CMakeLists.tst`, done with the `clion-config.js` is strictly for enabling CLion to read dependent node libraries.
-> Otherwise:
-> * `node-gyp` is completly independent of the CMakeLists.txt file
-> * `cmake-js` is configured to ignore the definitions added and may need additional configuration for other external libraries
-
-
-```powershell
-# add any other dependencies before or after this if
-
-if (CMAKE_JS_VERSION)
-else()
-  # start clion-config here
-  # leave this section unaltered; it will be changed by the `clion-config.js` script
-  include_directories(/home/dragosc/.cache/node-gyp/12.20.2/include/node)
-  include_directories(/home/dragosc/Workspace/templates/node-addon-nan/node_modules/nan)
-  # end clion-config here
-endif()
-
-# add any other dependencies before or after this if
-```
-
+No matter what build system you will choose, the configuration script will still generate the `CMakeLists.txt` file.
 
 ### Configuring the project in CLion
 
